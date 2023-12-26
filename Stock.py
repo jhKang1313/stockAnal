@@ -16,8 +16,6 @@ class StockBot:
 
 bot = StockBot()
 print(bot.get("012510"))
-
-print(bot.get("012510"))
 # bot.get()
 
 
