@@ -1,0 +1,4 @@
+Math = 80
+Science = 40
+English = 50
+Pysic = 10
