@@ -21,6 +21,7 @@ print(bot.get("012510"))
 
 
 
+
 # idList = kospiDF["Code"]
 #
 # def getStock(id, fromDate = "20220101", toDate = "20231231"):
