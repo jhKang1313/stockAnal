@@ -1,5 +1,5 @@
 import FinanceDataReader as fdr
-
+import datetime as dt
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
     self.fdr = fdr
@@ -16,9 +16,20 @@ class StockBot:
   def getAllKospi(self):
     for idItem in self.idList:
       self.get(idItem)
-      break
+  def getTop10Kospi(self):
+    for i in range(10):
+      self.get(self.idList[i])  
+  def getTop1Kospi(self):
+    self.get(self.idList[0])
   def print(self, id):
     print(self.df.get(id))
   def printAll(self):
     for key in self.df.keys():
       self.print(key)
+  def saveToExcel(self, df):
+    if(df is None):
+      print(f"df is None.")
+    else :
+      df.to_excel("excel_data.xlsx", index = False)
+      print("save Excel")
+
