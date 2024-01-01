@@ -1,5 +1,5 @@
 import FinanceDataReader as fdr
-import datetime as dt
+from datetime import datetime as dt
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
     self.fdr = fdr
@@ -30,6 +30,7 @@ class StockBot:
     if(df is None):
       print(f"df is None.")
     else :
-      df.to_excel("excel_data.xlsx", index = False)
+      nowDate = dt.strftime(dt.now(), '%Y%m%d_%H%M%S')
+      df.to_excel(f"{nowDate}_excel_data.xlsx", index = False)
       print("save Excel")
 
