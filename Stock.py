@@ -1,7 +1,11 @@
 import StockBot as sb
 
-bot = sb.StockBot()
-bot.getAllKospi()
-bot.get("012510")
+#print(dir(datetime))
+bot = sb.StockBot(fromDate = "20231201", toDate = "20231231")
+#bot.getTop10Kospi()
+bot.getTop1Kospi()
 
-bot.printAll()
+stock1 = bot.get("005930")
+bot.saveToExcel(stock1)
+
+
