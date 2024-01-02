@@ -33,4 +33,3 @@ class StockBot:
       nowDate = dt.strftime(dt.now(), '%Y%m%d_%H%M%S')
       df.to_excel(f"{nowDate}_excel_data.xlsx", index = False)
       print("save Excel")
-
