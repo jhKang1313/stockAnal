@@ -7,7 +7,13 @@ bot.getTop1Kospi()
 
 stock1 = bot.get("005930")
 
-print(stock1.loc["2023-12-04"]["Open"])
+#print(stock1.loc["2023-12-04"]["Open"])
 # Date -> Index 필드로 지정할 수 있음
-print(stock1.index)
+minClose = 0
+for key in stock1.index:
+  if minClose > stock1.loc[key]['Close']:
+    minClose = stock1.loc[key]['Close']  
+print(f"min Close is {minClose}")
+
+
 
