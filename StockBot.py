@@ -1,18 +1,28 @@
 import FinanceDataReader as fdr
 from datetime import datetime as dt
+'''
+Stock Bot Class base on FinanceDataReader 
+Stock Bot get KOSPI, KOSDAQ Stock Data
+'''
+
+#print(fdr.StockListing("KRX").loc[:, ["Code", "Name"]])
+
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
     self.fdr = fdr
     self.fromDate = fromDate
     self.toDate = toDate
-    self.originList = self.fdr.StockListing("KOSPI")
+    self.originList = self.fdr.StockListing("KRX")
+    self.nameMap = self.originList.loc[:, ["Code", "Name"]].set_index("Code")["Name"].to_dict()
     self.idList = self.originList["Code"]
     self.df = {}
   def get(self, id = "012510"): #default : douzone 
     if self.df.get(id) is None:
-      print(f"get {id}")
+      print(f"get {self.getName(id)} : {id}")
       self.df[id] = self.fdr.DataReader(id,self.fromDate, self.toDate)
     return self.df[id]
+  def getName(self, id):
+    return self.nameMap[id]
   def getAllKospi(self):
     for idItem in self.idList:
       self.get(idItem)
