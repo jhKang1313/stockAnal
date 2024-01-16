@@ -1,20 +1,23 @@
 import StockBot as sb
-from datetime import datetime as dt
 import StockAnal as sa
+from datetime import datetime as dt
+
 
 today = dt.strftime(dt.today(), '%Y%m%d')
 fromDate = "20220101"
 bot = sb.StockBot(fromDate = fromDate, toDate = today)
+anal = sa.StockAnal(bot, today)
 
-stock1 = bot.get("012510")
+douzoneId = "012510"
+bot.get(douzoneId)
 #bot.print("012510")
 #print(stock1.loc["2023-12-04"]["Open"])
 # Date -> Index 필드로 지정할 수 있음
 
 
 for id in bot.df.keys():
-  tt = sa.StockAnal(bot, id, today)
-  tt.print()
+  anal.setStockInfo(id)
+  anal.print()
   
   
   
