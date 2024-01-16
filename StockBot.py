@@ -4,9 +4,6 @@ from datetime import datetime as dt
 Stock Bot Class base on FinanceDataReader 
 Stock Bot get KOSPI, KOSDAQ Stock Data
 '''
-
-#print(fdr.StockListing("KRX").loc[:, ["Code", "Name"]])
-
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
     self.fdr = fdr
@@ -32,6 +29,7 @@ class StockBot:
   def getTop1Kospi(self):
     self.get(self.idList[0])
   def print(self, id):
+    print(self.getName(id))
     print(self.df.get(id))
   def printAll(self):
     for key in self.df.keys():
