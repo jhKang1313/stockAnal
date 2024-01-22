@@ -23,6 +23,9 @@ class StockBot:
   def getAllKospi(self):
     for idItem in self.idList:
       self.get(idItem)
+  def getTop100Kospi(self):
+    for i in range(100):
+      self.get(self.idList[i])
   def getTop10Kospi(self):
     for i in range(10):
       self.get(self.idList[i])  
