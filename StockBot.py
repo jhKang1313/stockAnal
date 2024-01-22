@@ -15,7 +15,7 @@ class StockBot:
     self.df = {}
   def get(self, id = "012510"): #default : douzone 
     if self.df.get(id) is None:
-      print(f"get {self.getName(id)} : {id}")
+      print(f"{self.getName(id)} : {id}")
       self.df[id] = self.fdr.DataReader(id,self.fromDate, self.toDate)
     return self.df[id]
   def getName(self, id):
@@ -23,6 +23,9 @@ class StockBot:
   def getAllKospi(self):
     for idItem in self.idList:
       self.get(idItem)
+  def getTop100Kospi(self):
+    for i in range(100):
+      self.get(self.idList[i])
   def getTop10Kospi(self):
     for i in range(10):
       self.get(self.idList[i])  
