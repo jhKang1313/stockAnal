@@ -31,6 +31,9 @@ class StockBot:
       self.get(self.idList[i])  
   def getTop1Kospi(self):
     self.get(self.idList[0])
+  def getTopNKospi(self, n):
+    for i in range(n):
+      self.get(self.idList[i])
   def print(self, id):
     print(self.getName(id))
     print(self.df.get(id))

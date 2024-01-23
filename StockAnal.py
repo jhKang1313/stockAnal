@@ -1,4 +1,3 @@
-import locale as lc
 from datetime import datetime as dt
 
 FDATE = "%Y%m%d"
@@ -12,8 +11,8 @@ class StockAnal:
     self.bot = bot
     self.today = today
     self.id = None
-    self.CRITICAL_RATE = 5
-    lc.setlocale(lc.LC_NUMERIC, 'en_US.UTF-8')
+    self.CRITICAL_RATE = 5  
+    
 
   def setStockInfo(self, id):
     self.id = id
@@ -48,4 +47,4 @@ class StockAnal:
     print("-----------------------------")
 
   def doLocale(self, num):
-    return lc.format_string('%d', num, grouping=True)
+    return "{:,}".format(num)
