@@ -1,4 +1,3 @@
-import locale as lc
 from datetime import datetime as dt
 
 FDATE = "%Y%m%d"
@@ -12,9 +11,8 @@ class StockAnal:
     self.bot = bot
     self.today = today
     self.id = None
-    self.CRITICAL_RATE = 5
-    lc.setlocale(lc.LC_NUMERIC, 'en_US.UTF-8')
-
+    self.CRITICAL_RATE = 5  
+    
   def setStockInfo(self, id):
     self.id = id
     self.stock = self.bot.get(id)
@@ -22,6 +20,12 @@ class StockAnal:
     self.min = self.minRow[self.baseCol]
     self.minDate = self.minRow.name
     self.minDateStr = self.minDate.strftime(FDATE)
+
+    self.maxRow = self.stock.loc[self.stock[self.baseCol].idxmax()]
+    self.max = self.maxRow[self.baseCol]
+    self.maxDate = self.maxRow.name
+    self.maxDateStr = self.maxDate.strftime(FDATE)
+
     self.todayAmt = self.stock.loc[self.today][self.baseCol]
     self.todayMinDiffAmt = self.todayAmt - self.min
     self.todayMinDiffDays = (dt.strptime(self.today, FDATE) - self.minDate).days
@@ -39,6 +43,8 @@ class StockAnal:
     print(f"{self.id} : {self.bot.getName(self.id)}")
     print(f"-min : {self.doLocale(self.min)}")
     print(f"-minDate : {self.minDateStr}")
+    print(f"-max : {self.doLocale(self.max)}")
+    print(f"-maxDate : {self.maxDateStr}")
     print(f"-todayAmt : {self.doLocale(self.todayAmt)}")
     print(f"-today Diff Amt : {self.doLocale(self.todayMinDiffAmt)}")
     print(f"-today Diff Days : {self.todayMinDiffDays}")
@@ -48,4 +54,4 @@ class StockAnal:
     print("-----------------------------")
 
   def doLocale(self, num):
-    return lc.format_string('%d', num, grouping=True)
+    return "{:,}".format(num)

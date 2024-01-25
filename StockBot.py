@@ -20,17 +20,10 @@ class StockBot:
     return self.df[id]
   def getName(self, id):
     return self.nameMap[id]
-  def getAllKospi(self):
-    for idItem in self.idList:
-      self.get(idItem)
-  def getTop100Kospi(self):
-    for i in range(100):
+  def getNStock(self, n = 0):
+    idx = n if n != 0 else len(self.idList)
+    for i in range(idx):
       self.get(self.idList[i])
-  def getTop10Kospi(self):
-    for i in range(10):
-      self.get(self.idList[i])  
-  def getTop1Kospi(self):
-    self.get(self.idList[0])
   def print(self, id):
     print(self.getName(id))
     print(self.df.get(id))

@@ -1,5 +1,9 @@
 import FinanceDataReader as fdr
 
+idList = [1, 2, 3, 4]
+
+print(len(idList))
+
 # df_krx = fdr.StockListing('KRX')
 # print(df_krx);
 
@@ -76,34 +80,34 @@ import FinanceDataReader as fdr
 # print(profile)
 # profileFile.close()
 
-import inspect
-import random
+# import inspect
+# import random
 
-print(inspect.getfile(random))
-class Unit:
-    def __init__(self, name, hp):
-        self.name = name
-        self.hp = hp
-class AttackUnit(Unit):
-    def __init__(self, name, hp, dem):
-        Unit.__init__(self, name, hp)
-        self.dem = dem
-    def attack(self, direction):
-        print("{0} : {1} 방향에 {2} 데미지로 공격합니다.".format(self.name, direction, self.dem))
+# print(inspect.getfile(random))
+# class Unit:
+#     def __init__(self, name, hp):
+#         self.name = name
+#         self.hp = hp
+# class AttackUnit(Unit):
+#     def __init__(self, name, hp, dem):
+#         Unit.__init__(self, name, hp)
+#         self.dem = dem
+#     def attack(self, direction):
+#         print("{0} : {1} 방향에 {2} 데미지로 공격합니다.".format(self.name, direction, self.dem))
 
-class Flyable:
-  def __init__(self, speed):
-    self.speed = speed
-  def flying(self, name, location):
-    print("{0} : {1} 방향으로 날아감 (속도 [{2}])".format(
-          name, location, self.speed))
+# class Flyable:
+#   def __init__(self, speed):
+#     self.speed = speed
+#   def flying(self, name, location):
+#     print("{0} : {1} 방향으로 날아감 (속도 [{2}])".format(
+#           name, location, self.speed))
 
-class FlyableAttackUnit(AttackUnit, Flyable):
-  def __init__(self, name, hp, dem, speed):
-    AttackUnit.__init__(self, name, hp, dem)
-    Flyable(self, speed)
+# class FlyableAttackUnit(AttackUnit, Flyable):
+#   def __init__(self, name, hp, dem, speed):
+#     AttackUnit.__init__(self, name, hp, dem)
+#     Flyable(self, speed)
 
 
-marine1 = AttackUnit("marine", 40, 5)
-marine1.attack("5시")
+# marine1 = AttackUnit("marine", 40, 5)
+# marine1.attack("5시")
 
