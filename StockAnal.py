@@ -1,13 +1,14 @@
 from datetime import datetime as dt
 
 FDATE = "%Y%m%d"
+BASE_COL = "Close"
+CRITI_RATE = 5
 
 class StockAnal:
   def __init__(self, bot, today):
     self.minRow = None
     self.stock = None
     self.todayMinDiffAmt = None
-    self.baseCol = "Close"
     self.bot = bot
     self.today = today
     self.id = None
@@ -16,27 +17,34 @@ class StockAnal:
   def setStockInfo(self, id):
     self.id = id
     self.stock = self.bot.get(id)
-    self.minRow = self.stock.loc[self.stock[self.baseCol].idxmin()]
-    self.min = self.minRow[self.baseCol]
+    self.minRow = self.stock.loc[self.stock[BASE_COL].idxmin()]
+    self.min = self.minRow[BASE_COL]
     self.minDate = self.minRow.name
     self.minDateStr = self.minDate.strftime(FDATE)
 
-    self.maxRow = self.stock.loc[self.stock[self.baseCol].idxmax()]
-    self.max = self.maxRow[self.baseCol]
+    self.maxRow = self.stock.loc[self.stock[BASE_COL].idxmax()]
+    self.max = self.maxRow[BASE_COL]
     self.maxDate = self.maxRow.name
     self.maxDateStr = self.maxDate.strftime(FDATE)
 
-    self.todayAmt = self.stock.loc[self.today][self.baseCol]
+    self.todayAmt = self.stock.loc[self.today][BASE_COL]
     self.todayMinDiffAmt = self.todayAmt - self.min
     self.todayMinDiffDays = (dt.strptime(self.today, FDATE) - self.minDate).days
     self.todayMinDiffRate = (self.todayMinDiffAmt / self.todayAmt) * 100
     self.isGoodFlag = self.todayMinDiffRate <= self.CRITICAL_RATE
+  def getStockInfo(self):
+    return {
+      'id' : self.id,
+      'name' : self.bot.getName(self.id),
+      'minDate' : self.minDateStr,
+      'min' : self.min,
+      'maxDate' : self.maxDateStr,
+      'max' : self.max
+    }
   def doAnal(self):
     if self.isGoodFlag == False:
       return
     # Type.1 산형태. 올라갔다 내려가는중...
-
-
   def print(self, all=False):
     if all == True:
       self.bot.print(self.id)
@@ -49,7 +57,7 @@ class StockAnal:
     print(f"-today Diff Amt : {self.doLocale(self.todayMinDiffAmt)}")
     print(f"-today Diff Days : {self.todayMinDiffDays}")
     print(f"-today Diff Rate : {self.todayMinDiffRate}")
-    if self.todayMinDiffRate < 5:
+    if self.todayMinDiffRate < CRITI_RATE:
       print(f"is Good?")
     print("-----------------------------")
 

@@ -17,6 +17,8 @@ bot.getNStock(1)
 for id in bot.df.keys():
   anal.setStockInfo(id)
   anal.print()
+  row = anal.getStockInfo()
+  print(row)
   
 
 
