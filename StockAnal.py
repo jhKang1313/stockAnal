@@ -12,7 +12,6 @@ class StockAnal:
     self.bot = bot
     self.today = today
     self.id = None
-    self.CRITICAL_RATE = 5  
     
   def setStockInfo(self, id):
     self.id = id
@@ -31,7 +30,7 @@ class StockAnal:
     self.todayMinDiffAmt = self.todayAmt - self.min
     self.todayMinDiffDays = (dt.strptime(self.today, FDATE) - self.minDate).days
     self.todayMinDiffRate = (self.todayMinDiffAmt / self.todayAmt) * 100
-    self.isGoodFlag = self.todayMinDiffRate <= self.CRITICAL_RATE
+    self.isGoodFlag = self.todayMinDiffRate <= CRITI_RATE
   def getStockInfo(self):
     return {
       'id' : self.id,

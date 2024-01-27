@@ -1,4 +1,14 @@
 import FinanceDataReader as fdr
+import holidays 
+
+
+
+holi = holidays.Korea()
+
+if "20240101" in holi:
+ print("is holiday")
+else :
+ print("is not holiday")
 
 idList = [1, 2, 3, 4]
 
