@@ -6,6 +6,7 @@ Stock Bot get KOSPI, KOSDAQ Stock Data
 '''
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
+    print(f"from : {fromDate}, to : {toDate}")
     self.fdr = fdr
     self.fromDate = fromDate
     self.toDate = toDate

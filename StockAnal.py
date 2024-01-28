@@ -12,7 +12,7 @@ class StockAnal:
     self.bot = bot
     self.today = today
     self.id = None
-    
+
   def setStockInfo(self, id):
     self.id = id
     self.stock = self.bot.get(id)
@@ -38,7 +38,11 @@ class StockAnal:
       'minDate' : self.minDateStr,
       'min' : self.min,
       'maxDate' : self.maxDateStr,
-      'max' : self.max
+      'max' : self.max,
+      'today' : self.today,
+      'minDiffAmt': self.todayMinDiffAmt,
+      'minDiffDays' : self.todayMinDiffDays,
+      'minDiffRate' : self.todayMinDiffRate
     }
   def doAnal(self):
     if self.isGoodFlag == False:
