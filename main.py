@@ -1,4 +1,31 @@
 import FinanceDataReader as fdr
+import holidays
+from datetime import timedelta, datetime
+
+test = False
+
+if not test:
+ print("is True")
+
+
+today = datetime.today()
+if today.weekday() in [5, 6]:
+ print("is weekend")
+
+
+print((today + timedelta(days = 1)).weekday())
+
+print(today.weekday())
+holi = holidays.Korea()
+
+if "20240101" in holi:
+ print("is holiday")
+else :
+ print("is not holiday")
+
+idList = [1, 2, 3, 4]
+
+print(len(idList))
 
 # df_krx = fdr.StockListing('KRX')
 # print(df_krx);
