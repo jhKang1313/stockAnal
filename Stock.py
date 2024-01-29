@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import datetime as dt
 
 FROM_DATE = "20220101"
-COUNT = 2
+COUNT = 200
 
 date = sd.StockDate()
 latestOpenDate = date.getLatestOpenDateFromToday()
