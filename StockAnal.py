@@ -31,6 +31,13 @@ class StockAnal:
     self.todayMinDiffDays = (dt.strptime(self.today, FDATE) - self.minDate).days
     self.todayMinDiffRate = (self.todayMinDiffAmt / self.todayAmt) * 100
     self.isGoodFlag = self.todayMinDiffRate <= CRITI_RATE
+
+    self.buyDate = None
+    self.buyAmount = None
+    if id in self.bot.buyList.index:
+      buyRow = self.bot.buyList.loc[id]
+      self.buyDate = buyRow["buyDate"]
+      self.buyAmount = buyRow["buyAmount"]
   def getStockInfo(self):
     return {
       'id' : self.id,
@@ -42,7 +49,9 @@ class StockAnal:
       'today' : self.today,
       'minDiffAmt': self.todayMinDiffAmt,
       'minDiffDays' : self.todayMinDiffDays,
-      'minDiffRate' : self.todayMinDiffRate
+      'minDiffRate' : self.todayMinDiffRate,
+      'buyDate' : self.buyDate,
+      'buyAmount' : self.buyAmount
     }
   def doAnal(self):
     if self.isGoodFlag == False:
