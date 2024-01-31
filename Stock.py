@@ -16,7 +16,8 @@ anal = sa.StockAnal(bot, openDate)
 
 for id in bot.buyList.index:
   bot.get(id)
-# douzoneId = "012510"
+douzoneId = "012510"
+bot.get(douzoneId)
 bot.getNStock(COUNT)
 
 df_result = pd.DataFrame([])
