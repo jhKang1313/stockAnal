@@ -5,9 +5,10 @@ from datetime import datetime, timedelta
 class StockDate:
   def __init__(self):
     self.holiday = holidays.Korea()
-
   def getLatestOpenDateFromToday(self):
     today = datetime.today()
+    if today.hour < 9:
+      today = today - timedelta(days=1)
     for i in range(100):
       srcDate = today - timedelta(days=i)
       if self.isNormalDate(srcDate):
