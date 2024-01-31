@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import datetime as dt
 
 FROM_DATE = "20220101"
-COUNT = 200
+COUNT = 2
 
 date = sd.StockDate()
 latestOpenDate = date.getLatestOpenDateFromToday()
@@ -14,6 +14,8 @@ openDate = dt.strftime(latestOpenDate, '%Y%m%d')
 bot = sb.StockBot(fromDate = FROM_DATE, toDate = openDate)
 anal = sa.StockAnal(bot, openDate)
 
+for id in bot.buyList.index:
+  bot.get(id)
 # douzoneId = "012510"
 bot.getNStock(COUNT)
 
