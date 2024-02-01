@@ -14,7 +14,10 @@ openDate = dt.strftime(latestOpenDate, '%Y%m%d')
 bot = sb.StockBot(fromDate = FROM_DATE, toDate = openDate)
 anal = sa.StockAnal(bot, openDate)
 
-# douzoneId = "012510"
+for id in bot.buyList.index:
+  bot.get(id)
+douzoneId = "012510"
+bot.get(douzoneId)
 bot.getNStock(COUNT)
 
 df_result = pd.DataFrame([])
