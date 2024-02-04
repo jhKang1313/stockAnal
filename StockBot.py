@@ -42,6 +42,6 @@ class StockBot:
       df.to_excel(f"{nowDate}_excel_data.xlsx", index = False)
       print("save Excel")
   def readBuyList(self):
-    df = pd.read_csv(FILE_NAME, header=0, index_col="id", dtype={"id" : str})
+    df = pd.read_csv(FILE_NAME, header=0, index_col='id', dtype={'id' : str})
     return df
 
