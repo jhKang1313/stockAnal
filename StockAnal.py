@@ -45,6 +45,7 @@ class StockAnal:
       'maxDate' : maxDateStr,
       'max' : max,
       'today' : self.today,
+      'todayAmt' : todayAmt,
       'minDiffAmt': todayMinDiffAmt,
       'minDiffDays' : todayMinDiffDays,
       'minDiffRate' : todayMinDiffRate,
@@ -62,16 +63,16 @@ class StockAnal:
   def print(self, all=False):
     if all == True:
       self.bot.print(self.stockInfo.id)
-    print(f"{self.stockInfo.id} : {self.bot.getName(self.stockInfo.id)}")
-    print(f"-min : {self.doLocale(self.stockInfo.min)}")
-    print(f"-minDate : {self.stockInfo.minDateStr}")
-    print(f"-max : {self.doLocale(self.stockInfo.max)}")
-    print(f"-maxDate : {self.stockInfo.maxDateStr}")
-    print(f"-todayAmt : {self.doLocale(self.stockInfo.todayAmt)}")
-    print(f"-today Diff Amt : {self.doLocale(self.stockInfo.todayMinDiffAmt)}")
-    print(f"-today Diff Days : {self.stockInfo.todayMinDiffDays}")
-    print(f"-today Diff Rate : {self.stockInfo.todayMinDiffRate}")
-    if self.todayMinDiffRate < CRITI_RATE:
+    print(f"{self.stockInfo['id']} : {self.bot.getName(self.stockInfo['id'])}")
+    print(f"-min : {self.doLocale(self.stockInfo['min'])}")
+    print(f"-minDate : {self.stockInfo['minDate']}")
+    print(f"-max : {self.doLocale(self.stockInfo['max'])}")
+    print(f"-maxDate : {self.stockInfo['maxDate']}")
+    print(f"-todayAmt : {self.doLocale(self.stockInfo['todayAmt'])}")
+    print(f"-today Diff Amt : {self.doLocale(self.stockInfo['minDiffAmt'])}")
+    print(f"-today Diff Days : {self.stockInfo['minDiffDays']}")
+    print(f"-today Diff Rate : {self.stockInfo['minDiffRate']}")
+    if self.stockInfo['minDiffRate'] < CRITI_RATE:
       print(f"is Good?")
     print("-----------------------------")
 
