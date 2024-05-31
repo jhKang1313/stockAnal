@@ -1,11 +1,14 @@
 import FinanceDataReader as fdr
+import pandas as pd
 from datetime import datetime as dt
 '''
 Stock Bot Class base on FinanceDataReader 
 Stock Bot get KOSPI, KOSDAQ Stock Data
 '''
+FILE_NAME = "buyStock.csv"
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
+    print(f"from : {fromDate}, to : {toDate}")
     self.fdr = fdr
     self.fromDate = fromDate
     self.toDate = toDate
@@ -13,6 +16,7 @@ class StockBot:
     self.nameMap = self.originList.loc[:, ["Code", "Name"]].set_index("Code")["Name"].to_dict()
     self.idList = self.originList["Code"]
     self.df = {}
+    self.buyList = self.readBuyList()
   def get(self, id = "012510"): #default : douzone 
     if self.df.get(id) is None:
       print(f"{self.getName(id)} : {id}")
@@ -37,3 +41,7 @@ class StockBot:
       nowDate = dt.strftime(dt.now(), '%Y%m%d_%H%M%S')
       df.to_excel(f"{nowDate}_excel_data.xlsx", index = False)
       print("save Excel")
+  def readBuyList(self):
+    df = pd.read_csv(FILE_NAME, header=0, index_col='id', dtype={'id' : str})
+    return df
+

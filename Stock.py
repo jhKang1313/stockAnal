@@ -1,23 +1,36 @@
 import StockBot as sb
 import StockAnal as sa
+import StockDate as sd
+import pandas as pd
 from datetime import datetime as dt
 
+FROM_DATE = "20220101"
+COUNT = 200
 
-today = dt.strftime(dt.today(), '%Y%m%d')
-#today = "20240122"
-fromDate = "20220101"
-bot = sb.StockBot(fromDate = fromDate, toDate = today)
-anal = sa.StockAnal(bot, today)
+date = sd.StockDate()
+latestOpenDate = date.getLatestOpenDateFromToday()
+openDate = dt.strftime(latestOpenDate, '%Y%m%d')
 
+bot = sb.StockBot(fromDate = FROM_DATE, toDate = openDate)
+anal = sa.StockAnal(bot, openDate)
+
+print(bot.buyList)
+
+# for id in bot.buyList.index:
+#   if len(id) != 6:
+#     print("not length 6")
+#   bot.get(id)
 # douzoneId = "012510"
 # bot.get(douzoneId)
-# ㅁㄴㅇㅁㄴㅇ
-bot.getNStock(1)
+bot.getNStock(COUNT)
 
+df_result = pd.DataFrame([])
 for id in bot.df.keys():
-  anal.setStockInfo(id)
+  newRow = anal.setStockInfo(id)
   anal.print()
-  
+  df_result = pd.concat([df_result, pd.DataFrame([newRow])], ignore_index=True)
 
-
+#print(df_result)
+print(df_result.loc[df_result["minDiffRate"] <= 10])
+bot.saveToExcel(df_result)
 
