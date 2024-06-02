@@ -1,11 +1,14 @@
 import FinanceDataReader as fdr
+import pandas as pd
 from datetime import datetime as dt
 '''
 Stock Bot Class base on FinanceDataReader 
 Stock Bot get KOSPI, KOSDAQ Stock Data
 '''
+BUY_FILE_NAME = "input/buyStock.csv"
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
+    print(f"from : {fromDate}, to : {toDate}")
     self.fdr = fdr
     self.fromDate = fromDate
     self.toDate = toDate
@@ -13,24 +16,18 @@ class StockBot:
     self.nameMap = self.originList.loc[:, ["Code", "Name"]].set_index("Code")["Name"].to_dict()
     self.idList = self.originList["Code"]
     self.df = {}
+    self.buyList = self.readBuyList()
   def get(self, id = "012510"): #default : douzone 
     if self.df.get(id) is None:
-      print(f"{self.getName(id)} : {id}")
+      print(f"{len(self.df) + 1} : {self.getName(id)} : {id}")
       self.df[id] = self.fdr.DataReader(id,self.fromDate, self.toDate)
     return self.df[id]
   def getName(self, id):
     return self.nameMap[id]
-  def getAllKospi(self):
-    for idItem in self.idList:
-      self.get(idItem)
-  def getTop100Kospi(self):
-    for i in range(100):
+  def getNStock(self, n = 0):
+    idx = n if n != 0 else len(self.idList)
+    for i in range(idx):
       self.get(self.idList[i])
-  def getTop10Kospi(self):
-    for i in range(10):
-      self.get(self.idList[i])  
-  def getTop1Kospi(self):
-    self.get(self.idList[0])
   def print(self, id):
     print(self.getName(id))
     print(self.df.get(id))
@@ -42,5 +39,24 @@ class StockBot:
       print(f"df is None.")
     else :
       nowDate = dt.strftime(dt.now(), '%Y%m%d_%H%M%S')
-      df.to_excel(f"{nowDate}_excel_data.xlsx", index = False)
+      df.to_excel(f"output/{nowDate}_excel_data.xlsx", index = False)
       print("save Excel")
+  def readBuyList(self):
+    df = pd.read_csv(BUY_FILE_NAME, header=0, dtype={'id' : str})
+    df['id'] = df['id'].apply(lambda s : s.zfill(6))
+    df = df.set_index('id');
+    return df
+
+
+if __name__ == "__main__":
+  bot = StockBot()
+  buyStock = bot.readBuyList()
+
+  buyStock['id'] = buyStock['id'].apply(lambda s: s.zfill(7))
+  buyStock = buyStock.set_index('id')
+
+  print(buyStock)
+
+
+
+
