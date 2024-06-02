@@ -5,7 +5,7 @@ from datetime import datetime as dt
 Stock Bot Class base on FinanceDataReader 
 Stock Bot get KOSPI, KOSDAQ Stock Data
 '''
-FILE_NAME = "buyStock.csv"
+BUY_FILE_NAME = "input/buyStock.csv"
 class StockBot:
   def __init__(self, fromDate = "20220101", toDate = "20231231"):
     print(f"from : {fromDate}, to : {toDate}")
@@ -19,7 +19,7 @@ class StockBot:
     self.buyList = self.readBuyList()
   def get(self, id = "012510"): #default : douzone 
     if self.df.get(id) is None:
-      print(f"{self.getName(id)} : {id}")
+      print(f"{len(self.df) + 1} : {self.getName(id)} : {id}")
       self.df[id] = self.fdr.DataReader(id,self.fromDate, self.toDate)
     return self.df[id]
   def getName(self, id):
@@ -39,9 +39,24 @@ class StockBot:
       print(f"df is None.")
     else :
       nowDate = dt.strftime(dt.now(), '%Y%m%d_%H%M%S')
-      df.to_excel(f"{nowDate}_excel_data.xlsx", index = False)
+      df.to_excel(f"output/{nowDate}_excel_data.xlsx", index = False)
       print("save Excel")
   def readBuyList(self):
-    df = pd.read_csv(FILE_NAME, header=0, index_col='id', dtype={'id' : str})
+    df = pd.read_csv(BUY_FILE_NAME, header=0, dtype={'id' : str})
+    df['id'] = df['id'].apply(lambda s : s.zfill(6))
+    df = df.set_index('id');
     return df
+
+
+if __name__ == "__main__":
+  bot = StockBot()
+  buyStock = bot.readBuyList()
+
+  buyStock['id'] = buyStock['id'].apply(lambda s: s.zfill(7))
+  buyStock = buyStock.set_index('id')
+
+  print(buyStock)
+
+
+
 

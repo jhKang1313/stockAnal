@@ -16,12 +16,6 @@ anal = sa.StockAnal(bot, openDate)
 
 print(bot.buyList)
 
-# for id in bot.buyList.index:
-#   if len(id) != 6:
-#     print("not length 6")
-#   bot.get(id)
-# douzoneId = "012510"
-# bot.get(douzoneId)
 bot.getNStock(COUNT)
 
 df_result = pd.DataFrame([])

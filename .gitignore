@@ -6,9 +6,10 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-*.xlsx
+/output/*
 # Icon must end with two \r
 Icon
+
 
 
 # Thumbnails
