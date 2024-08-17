@@ -31,11 +31,14 @@ class StockAnal:
     buyDate = None
     buyAmount = None
     buyDiffAmt = None
+    buyProfit = None
     if id in self.bot.buyList.index:
       buyRow = self.bot.buyList.loc[id]
       buyDate = buyRow["buyDate"]
       buyAmount = buyRow["buyAmount"]
-      buyDiffAmt = todayAmt - buyRow["buyAmount"]
+      buyDiffAmt = todayAmt - buyRow["buyAmount"] 
+      buyProfit = todayAmt - (buyRow["buyAmount"] * buyRow["buyCount"])
+      
     
     self.stockInfo = {
       'id' : id,
@@ -51,7 +54,9 @@ class StockAnal:
       'minDiffRate' : todayMinDiffRate,
       'buyDate' : buyDate,
       'buyAmount' : buyAmount,
-      'buyDiffAmt' : buyDiffAmt
+      'buyDiffAmt' : buyDiffAmt,
+      'buyProfit' : buyProfit
+
     }
 
     return self.stockInfo
