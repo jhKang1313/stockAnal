@@ -3,6 +3,7 @@ import StockAnal as sa
 import StockDate as sd
 import pandas as pd
 from datetime import datetime as dt
+from dbConn import DBConnector
 
 FROM_DATE = "20220101"
 COUNT = 200
@@ -26,5 +27,17 @@ for id in bot.df.keys():
 
 #print(df_result)
 print(df_result.loc[df_result["minDiffRate"] <= 10])
-bot.saveToExcel(df_result)
+#bot.saveToExcel(df_result)
+df_result = df_result.where(pd.notna(df_result), None)
+colList = list(df_result.columns)
 
+dbCon = DBConnector()
+
+for row in df_result.iterrows():
+  sql = dbCon.makeInsertQuery("stock_table", colList, row)
+  param = dbCon.makeRowParam(colList, row)
+  print(sql)
+  print(param)
+  dbCon.exec(sql, param)
+
+dbCon.commitAndClose()

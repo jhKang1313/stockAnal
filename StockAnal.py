@@ -1,9 +1,10 @@
 from datetime import datetime as dt
+import numpy as np
 
 FDATE = "%Y%m%d"
 BASE_COL = "Close"
 CRITI_RATE = 5
-
+nowDate = dt.strftime(dt.now(), '%Y%m%d_%H%M%S')
 class StockAnal:
   def __init__(self, bot, today):
     self.bot = bot
@@ -25,22 +26,24 @@ class StockAnal:
     todayAmt = stock.loc[self.today][BASE_COL]
     todayMinDiffAmt = todayAmt - min
     todayMinDiffDays = (dt.strptime(self.today, FDATE) - minDate).days
-    todayMinDiffRate = (todayMinDiffAmt / todayAmt) * 100
+    todayMinDiffRate = round((todayMinDiffAmt / todayAmt) * 100, 2)
     isGoodFlag = todayMinDiffRate <= CRITI_RATE
 
     buyDate = None
     buyAmount = None
-    buyDiffAmt = None
-    buyProfit = None
+    buyDiffAmt = 0
+    buyProfit = 0
     if id in self.bot.buyList.index:
       buyRow = self.bot.buyList.loc[id]
       buyDate = buyRow["buyDate"]
       buyAmount = buyRow["buyAmount"]
-      buyDiffAmt = todayAmt - buyRow["buyAmount"] 
+      buyDiffAmt = todayAmt - buyRow["buyAmount"]
       buyProfit = todayAmt - (buyRow["buyAmount"] * buyRow["buyCount"])
+
       
     
     self.stockInfo = {
+      "proc_dt": nowDate,
       'id' : id,
       'name' : self.bot.getName(id),
       'minDate' : minDateStr,
@@ -54,7 +57,7 @@ class StockAnal:
       'minDiffRate' : todayMinDiffRate,
       'buyDate' : buyDate,
       'buyAmount' : buyAmount,
-      'buyDiffAmt' : buyDiffAmt,
+      'buyDiffAmt' : buyDiffAmt ,
       'buyProfit' : buyProfit
 
     }
